@@ -140,7 +140,7 @@ function Ejercicio08() {
 
     const IMC = peso/estatura**2;
 
-     if (IMC < 18.5) {
+    if (IMC < 18.5) {
         categoria = "Bajo peso";
     } else if (IMC < 25) {
         categoria = "Normal";
@@ -262,11 +262,104 @@ cantidad).
 Calcula y muestra: Promedio de edades y cantidad de personas mayores de edad*/
 
 function Ejercicio13() {
+    let numeroPersonas = parseInt(prompt("Ingrese la canditad de edades que va a ingresar:"));
+    let suma = 0
+    let mayoresDeEdad = 0;
+
+    if (numeroPersonas < 0) {
+        alert("Error. El número debe ser mayor a 0.");
+        return;
+    }
+
+    for (let i = 1; i <= numeroPersonas; i++) {
+        let edad = parseInt(prompt("Ingrese la edad " + i + ":"));
+
+        if (edad <= 0) {
+            alert("Edad inválida. Intente de nuevo.");
+            i--;
+            continue;
+        }
+
+        suma += edad;
+        
+        if (edad >= 18) {
+            mayoresDeEdad++;
+        }
+    }
     
+    const PROMEDIO = suma/numeroPersonas;
+
+    alert("Promedio de edades: " + PROMEDIO.toFixed(2) + "\nPersonas mayores de edad: " + mayoresDeEdad);
 }
 
+/*14. Programa que pida un número n y que muestre todos los números primos desde 2 hasta n, 
+y la cantidad de números primos que encontró*/
 
+function Ejercicio14() {
+    let n = parseInt(prompt("Ingrese un número:"));
+    
+    if (n < 2) {
+        alert("Error. Debe ingresar un número mayor o igual a 2.");
+        return;
+    }
+    
+    let primos = "";
+    let contador = 0;
+    
+    for (let num = 2; num <= n; num++) {
+        let esPrimo = true;
+        
+        for (let i = 2; i <= Math.sqrt(num); i++) {
+            if (num % i === 0) {
+                esPrimo = false;
+                break;
+            }
+        }
+        
+        if (esPrimo) {
+            primos += (contador > 0 ? ", " : "") + num;
+            contador++;
+        }
+    }
+    
+    alert("Números primos: " + primos + "\nCantidad: " + contador);
+}
 
+/*15. Genera un número aleatorio entre 1 y 100. El usuario tiene 6 intentos para adivinarlo.
+Cada vez que ingresa un número, el programa indica si es mayor o menor que el
+número secreto.
+Termina cuando adivina o se acaban los intentos. Deberá mostrar si ganó o perdió, si
+ganó mostrar en cuántos intentos lo hizo*/
 
+function Ejercicio15() {
+    let intentos = 0;
+    let numRandom = Math.floor(Math.random() * 100) + 1;
+    let gano = false;
 
+    for (let i = 1; i <= 6; i++) {
+        let num = parseInt(prompt("Intento " + i + "/6 - Ingrese un número (1-100):"));
 
+        if (num < 1 || num > 100) {
+            alert("Error. Ingrese un número válido entre 1 y 100.");
+            i--;
+            continue;
+        }
+
+        intentos++;
+
+        if (num === numRandom) {
+            gano = true;
+            break;
+        } else if (num > numRandom) {
+            alert("El número ingresado es MENOR al número secreto.");
+        } else {
+            alert("El número ingresado es MAYOR al número secreto.");
+        }
+    }
+
+    if (gano) {
+        alert("¡GANASTE! Adivinaste el número " + numRandom + " en " + intentos + " intento(s).");
+    } else {
+        alert("PERDISTE. El número era: " + numRandom);
+    }
+}
